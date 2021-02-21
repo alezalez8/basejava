@@ -20,15 +20,15 @@ public class ArrayStorage {
         return uuid == storage[i].getUuid();
     }
 
-    void save(Resume r) {
-       // update(r);
-        storage[size] = r;
+    void save(Resume resume) {
+       // update(resume);
+        storage[size] = resume;
         size++;
     }
 
-    void update(Resume r) {
+    void update(Resume resume) {
         for (int i = 0; i < size; i++) {
-            if (r.getUuid() == storage[i].getUuid()) {
+            if (resume.getUuid() == storage[i].getUuid()) {
                 System.out.println("Resume is present in base, input another name");
                 break;
             }
