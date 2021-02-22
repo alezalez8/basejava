@@ -1,51 +1,55 @@
+package urise.webapp.storage;
+
+import urise.webapp.model.Resume;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
     private int size = 0;
 
     public int getSize() {
         return size;
     }
 
-    void clear() {
+    public void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
         size = 0;
     }
 
-    boolean isPresent(String uuid, Resume[] storage, int i) {
+    public boolean isPresent(String uuid, Resume[] storage, int i) {
         return uuid == storage[i].getUuid();
     }
 
-    void save(Resume resume) {
-       // update(resume);
+    public void save(Resume resume) {
+        // update(resume);
         storage[size] = resume;
         size++;
     }
 
-    void update(Resume resume) {
+    public void update(Resume resume) {
         for (int i = 0; i < size; i++) {
             if (resume.getUuid() == storage[i].getUuid()) {
-                System.out.println("Resume is present in base, input another name");
+                System.out.println("urise.webapp.model.Resume is present in base, input another name");
                 break;
             }
         }
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            //if (uuid == storage[i].getUuid()) {
-            if (isPresent(uuid, storage, i)) {
+            if (uuid == storage[i].getUuid()) {
+                // if (isPresent(uuid, storage, i)) {
                 return storage[i];
             }
         }
         return null;
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
 
         for (int i = 0; i < size; i++) {
             //if (uuid == storage[i].getUuid()) {
@@ -83,7 +87,7 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         Resume[] newResume = new Resume[size];
         for (int i = 0; i < size; i++) {
             newResume[i] = storage[i];
