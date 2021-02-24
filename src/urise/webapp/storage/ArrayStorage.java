@@ -7,8 +7,10 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+public class ArrayStorage implements Storage{
+
+    private static final int STORAGE_LIMIT = 10000;
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
     public int getSize() {
@@ -28,10 +30,17 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        // update(resume);
         storage[size] = resume;
         size++;
     }
+    /*public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if(index == -1){
+            System.out.println("Resume " + resume.getUuid() + " not exist");
+        } else {
+            storage[index] = resume;
+        }
+    }*/
 
     public void update(Resume resume) {
         for (int i = 0; i < size; i++) {
@@ -53,7 +62,6 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-
         for (int i = 0; i < size; i++) {
             //if (uuid == storage[i].getUuid()) {
             if (isPresent(uuid, storage, i)) {
@@ -68,8 +76,6 @@ public class ArrayStorage {
         }
 
     }
-
-
 
     /*void delete(String uuid) {
 
@@ -100,7 +106,16 @@ public class ArrayStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    int size() {
+    public int size() {
         return size;
+    }
+
+    private int getIndex(String uuid){
+        for(int i = 0; i < size; i++){
+            if(uuid == storage[i].getUuid()){
+                return i;
+            }
+        }
+        return -1;
     }
 }
