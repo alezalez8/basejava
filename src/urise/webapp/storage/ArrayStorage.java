@@ -46,36 +46,14 @@ public class ArrayStorage implements Storage {
             }
         }
 
-
-
-        /*for (int i = 0; i < size; i++) {
-            if (resume.getUuid().equals(storage[i].getUuid())) {
-                System.out.println("ERROR");
-                break;
-            }
-        }
-        storage[size] = resume;
-        size++;*/
     }
-    /*public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if(index == -1){
-            System.out.println("Resume " + resume.getUuid() + " not exist");
-        } else {
-            storage[index] = resume;
-        }
-    }*/
+
 
     public void update(Resume resume) {
         if (isPresent(resume.getUuid())) {
             System.out.println("urise.webapp.model.Resume is present in base, input another name");
         }
-        /*for (int i = 0; i < size; i++) {
-            if (resume.getUuid() == storage[i].getUuid()) {
-                System.out.println("urise.webapp.model.Resume is present in base, input another name");
-                break;
-            }
-        }*/
+
     }
 
     public Resume get(String uuid) {
@@ -102,32 +80,11 @@ public class ArrayStorage implements Storage {
 
     }
 
-    /*void delete(String uuid) {
-
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid()==uuid) {
-                for (int k = i; (k - 1) < size; k++) {
-                    storage[k] = storage[k + 1];
-                }
-                size--;
-                break;
-
-            }
-
-        }
-    }*/
-
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-
-     /*   Resume[] newResume = new Resume[size];
-        for (int i = 0; i < size; i++) {
-            newResume[i] = storage[i];
-        }
-        return newResume;*/
         return Arrays.copyOfRange(storage, 0, size);
     }
 
