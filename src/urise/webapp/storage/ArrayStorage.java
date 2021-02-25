@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage implements Storage{
+public class ArrayStorage implements Storage {
 
     private static final int STORAGE_LIMIT = 10000;
     private Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -25,13 +25,37 @@ public class ArrayStorage implements Storage{
         size = 0;
     }
 
-    public boolean isPresent(String uuid, Resume[] storage, int i) {
-        return uuid == storage[i].getUuid();
+    private boolean isPresent(String uuid) {
+        for (int i = 0; i < size; i++) {
+            // if (resume.getUuid().equals(storage[i].getUuid())) {}
+            if (uuid.equals(storage[i].getUuid())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void save(Resume resume) {
+        if (isPresent(resume.getUuid())) {
+            System.out.println("ERROR: this record already present in base");
+
+        } else {
+            if (size < storage.length) {
+                storage[size] = resume;
+                size++;
+            }
+        }
+
+
+
+        /*for (int i = 0; i < size; i++) {
+            if (resume.getUuid().equals(storage[i].getUuid())) {
+                System.out.println("ERROR");
+                break;
+            }
+        }
         storage[size] = resume;
-        size++;
+        size++;*/
     }
     /*public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
@@ -43,34 +67,35 @@ public class ArrayStorage implements Storage{
     }*/
 
     public void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
+        if (isPresent(resume.getUuid())) {
+            System.out.println("urise.webapp.model.Resume is present in base, input another name");
+        }
+        /*for (int i = 0; i < size; i++) {
             if (resume.getUuid() == storage[i].getUuid()) {
                 System.out.println("urise.webapp.model.Resume is present in base, input another name");
                 break;
             }
-        }
+        }*/
     }
 
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid == storage[i].getUuid()) {
-                // if (isPresent(uuid, storage, i)) {
                 return storage[i];
-            }
+            } else System.out.println("ERROR");
         }
         return null;
     }
 
     public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            //if (uuid == storage[i].getUuid()) {
-            if (isPresent(uuid, storage, i)) {
+            if (uuid == storage[i].getUuid()) {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
                 break;
 
-            }
+            } else System.out.println("ERROR");
 
 
         }
@@ -110,9 +135,9 @@ public class ArrayStorage implements Storage{
         return size;
     }
 
-    private int getIndex(String uuid){
-        for(int i = 0; i < size; i++){
-            if(uuid == storage[i].getUuid()){
+    private int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid == storage[i].getUuid()) {
                 return i;
             }
         }
